@@ -1,0 +1,13 @@
+{
+  "name": "notification",
+  "version": "1.0.0",
+  "description": "Desktop notifications for Claude Code events.",
+  "author": {
+    "name": "Paulo Diovani Gonçalves",
+    "url": "https://github.com/paulodiovani"
+  },
+  "homepage": "https://github.com/paulodiovani/claude-code-notification-plugin",
+  "repository": "https://github.com/paulodiovani/claude-code-notification-plugin",
+  "license": "MIT",
+  "keywords": ["notification", "desktop", "hooks"]
+}
