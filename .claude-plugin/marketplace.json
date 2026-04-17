@@ -1,0 +1,14 @@
+{
+  "name": "paulodiovani",
+  "owner": {
+    "name": "Paulo Diovani Gonçalves",
+    "url": "https://github.com/paulodiovani"
+  },
+  "plugins": [
+    {
+      "name": "notification",
+      "source": "./",
+      "description": "Desktop notifications for Claude Code events."
+    }
+  ]
+}

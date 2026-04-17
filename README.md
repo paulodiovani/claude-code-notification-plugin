@@ -21,10 +21,9 @@ No extra dependencies. Uses `display notification` via AppleScript.
 
 ## Installation
 
-Install the plugin via `/plugins` -> Marketplaces -> Add Marketplace, then add:
+From within Claude Code, add the marketplace and install the plugin:
 
 ```
-paulodiovani/claude-code-notification-plugin
+/plugin marketplace add paulodiovani/claude-code-notification-plugin
+/plugin install notification@paulodiovani
 ```
-
-And install the `notification` plugin from the marketplace.
