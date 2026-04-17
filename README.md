@@ -11,6 +11,10 @@ Claude Code plugin to enable desktop notifications.
   - 🤖 An MCP tool requested your input (`Elicitation`)
 - Notifications are delayed 30 seconds and cancelled automatically if Claude resumes work before they fire, so you're only notified when Claude is actually idle.
 
+### Screenshots
+
+![screenshot](assets/media/screenshot.png)
+
 ## Dependencies
 
 - [`jq`](https://stedolan.github.io/jq/) — used to parse hook input.
