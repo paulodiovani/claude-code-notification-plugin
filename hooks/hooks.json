@@ -5,7 +5,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/notify.sh -c \"An MCP tool requested your input\" \"🤖 Claude Code\""
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/notify.sh -c -d 30 \"An MCP tool requested your input\" \"🤖 Claude Code\""
           }
         ]
       }
@@ -15,7 +15,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/notify.sh -c \"Claude has a question for you\" \"❓ Claude Code\""
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/notify.sh -c -d 30 \"Claude has a question for you\" \"❓ Claude Code\""
           }
         ]
       }
@@ -25,7 +25,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/notify.sh -c \"Claude has finished the current task\" \"✅ Claude Code\""
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/notify.sh -c -d 30 \"Claude has finished the current task\" \"✅ Claude Code\""
           }
         ]
       }
@@ -35,7 +35,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/notify.sh -c \"Claude failed to complete the task\" \"❌ Claude Code\""
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/notify.sh -c -d 30 \"Claude failed to complete the task\" \"❌ Claude Code\""
           }
         ]
       }

@@ -15,13 +15,29 @@ Claude Code plugin to enable desktop notifications.
 
 ![screenshot](assets/media/screenshot.png)
 
+## Supported Platforms
+
+- **macOS** — uses `display notification` via AppleScript (`osascript`)
+- **Linux** — uses `notify-send` via [libnotify](https://gitlab.gnome.org/GNOME/libnotify)
+
 ## Dependencies
 
 - [`jq`](https://stedolan.github.io/jq/) — used to parse hook input.
 
-### macOS
+### Linux
 
-No extra dependencies. Uses `display notification` via AppleScript.
+Install `libnotify` to get `notify-send`:
+
+```sh
+# Debian/Ubuntu
+sudo apt install libnotify-bin
+
+# Arch/Manjaro
+sudo pacman -S libnotify
+
+# Fedora
+sudo dnf install libnotify
+```
 
 ## Installation
 
