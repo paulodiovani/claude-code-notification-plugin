@@ -12,16 +12,29 @@ cancel_pending() {
   fi
 }
 
-# Parse options
 if [ "$1" = "-c" ]; then
   cancel_pending
   shift
 fi
 
-# If arguments remain, schedule a new delayed notification
+DELAY=0
+if [ "$1" = "-d" ]; then
+  DELAY="$2"
+  shift 2
+fi
+
 if [ $# -ge 2 ]; then
   MESSAGE="$1"
   TITLE="$2"
-  nohup bash -c "sleep 30 && osascript -e 'display notification \"$MESSAGE\" with title \"$TITLE\"'; rm -f \"$PIDFILE\"" >/dev/null 2>&1 &
-  echo $! > "$PIDFILE"
+
+  if [ "$DELAY" -gt 0 ]; then
+    nohup bash -c "sleep '$DELAY' && '$0' '$MESSAGE' '$TITLE'; rm -f '$PIDFILE'" \
+      >/dev/null 2>&1 &
+    echo $! > "$PIDFILE"
+  else
+    case "$(uname)" in
+      Darwin) osascript -e "display notification \"$MESSAGE\" with title \"$TITLE\"" ;;
+      Linux)  notify-send "$TITLE" "$MESSAGE" ;;
+    esac
+  fi
 fi
