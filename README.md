@@ -9,7 +9,7 @@ Claude Code plugin to enable desktop notifications.
   - ❌ Claude failed to complete the task (`StopFailure`)
   - ❓ Claude has a question for you (`PermissionRequest`)
   - 🤖 An MCP tool requested your input (`Elicitation`)
-- Notifications are delayed 30 seconds and cancelled automatically if Claude resumes work before they fire, so you're only notified when Claude is actually idle.
+- Notifications are delayed 60 seconds and cancelled automatically if Claude resumes work before they fire, so you're only notified when Claude is actually idle.
 
 ### Screenshots
 
