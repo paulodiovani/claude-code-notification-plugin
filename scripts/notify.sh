@@ -83,8 +83,8 @@ if [ $# -ge 2 ]; then
 
         args=(-title "$TITLE" -message "$MESSAGE")
         [ -n "$SESSION_ID" ] && args+=(-group "$SESSION_ID")
-        [ -n "$BUNDLE_ID" ] && args+=(-sender "$BUNDLE_ID" -activate "$BUNDLE_ID")
-        [ -s "$ICON_FILE" ] && args+=(-appIcon "$ICON_FILE")
+        [ -n "$BUNDLE_ID" ] && args+=(-activate "$BUNDLE_ID")
+        [ -s "$ICON_FILE" ] && args+=(-contentImage "$ICON_FILE")
         terminal-notifier "${args[@]}" >/dev/null 2>&1
         ;;
       Linux)
