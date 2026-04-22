@@ -10,7 +10,6 @@ Claude Code plugin to enable desktop notifications.
   - ❓ Claude has a question for you (`PermissionRequest`)
   - 🤖 An MCP tool requested your input (`Elicitation`)
 - Notifications are delayed 60 seconds and cancelled automatically if Claude resumes work before they fire, so you're only notified when Claude is actually idle.
-- On macOS, notifications are suppressed when the terminal running the Claude session is already frontmost.
 
 ### Screenshots
 

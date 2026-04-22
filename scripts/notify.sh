@@ -11,7 +11,7 @@ PIDFILE="/tmp/claude-notify-${SESSION_ID}.pid"
 
 # macOS: resolve the bundle id of the terminal that launched this Claude session.
 # $__CFBundleIdentifier is set by LaunchServices and inherited through tmux/ssh.
-session_bundle_id() {
+macos__session_bundle_id() {
   if [ -n "$__CFBundleIdentifier" ]; then
     echo "$__CFBundleIdentifier"
     return
@@ -26,16 +26,6 @@ session_bundle_id() {
     fi
     pid=$(ps -o ppid= -p "$pid" 2>/dev/null | tr -d ' ')
   done
-}
-
-is_session_frontmost() {
-  local asn front session
-  asn=$(lsappinfo front 2>/dev/null)
-  [ -n "$asn" ] || return 1
-  front=$(lsappinfo info -only bundleid "$asn" 2>/dev/null \
-    | sed -n 's/^"CFBundleIdentifier"="\(.*\)"$/\1/p')
-  session=$(session_bundle_id)
-  [ -n "$front" ] && [ -n "$session" ] && [ "$front" = "$session" ]
 }
 
 cancel_pending() {
@@ -74,12 +64,7 @@ if [ $# -ge 2 ]; then
   else
     case "$(uname)" in
       Darwin)
-        if ! command -v terminal-notifier >/dev/null 2>&1; then
-          echo "notify.sh: terminal-notifier not found; install with 'brew install terminal-notifier'" >&2
-          exit 0
-        fi
-        is_session_frontmost && exit 0
-        BUNDLE_ID=$(session_bundle_id)
+        BUNDLE_ID=$(macos__session_bundle_id)
 
         args=(-title "$TITLE" -message "$MESSAGE")
         [ -n "$SESSION_ID" ] && args+=(-group "$SESSION_ID")
