@@ -2,10 +2,11 @@
 
 ICON_FILE="${CLAUDE_PLUGIN_ROOT:-$(cd "$(dirname "$0")/.." && pwd)}/assets/claude-logo.png"
 
-# In the delayed re-invocation SESSION_ID is inherited via env and stdin is /dev/null.
+# In the delayed re-invocation SESSION_ID/CWD are inherited via env and stdin is /dev/null.
 if [ -z "$SESSION_ID" ]; then
   INPUT=$(cat)
   SESSION_ID=$(echo "$INPUT" | jq -r '.session_id // empty')
+  CWD=$(echo "$INPUT" | jq -r '.cwd // empty')
 fi
 PIDFILE="/tmp/claude-notify-${SESSION_ID}.pid"
 
@@ -56,7 +57,7 @@ if [ $# -ge 2 ]; then
   TITLE="$2"
 
   if [ "$DELAY" -gt 0 ]; then
-    export SESSION_ID
+    export SESSION_ID CWD
     nohup bash -c 'sleep "$1" && "$0" "$2" "$3"; rm -f "$4"' \
       "$0" "$DELAY" "$MESSAGE" "$TITLE" "$PIDFILE" \
       </dev/null >/dev/null 2>&1 &
@@ -67,6 +68,7 @@ if [ $# -ge 2 ]; then
         BUNDLE_ID=$(macos__session_bundle_id)
 
         args=(-title "$TITLE" -message "$MESSAGE")
+        [ -n "$CWD" ]        && args+=(-subtitle "$(basename "$CWD")")
         [ -n "$SESSION_ID" ] && args+=(-group "$SESSION_ID")
         [ -n "$BUNDLE_ID" ] && args+=(-activate "$BUNDLE_ID")
         [ -s "$ICON_FILE" ] && args+=(-contentImage "$ICON_FILE")
