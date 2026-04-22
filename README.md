@@ -17,12 +17,22 @@ Claude Code plugin to enable desktop notifications.
 
 ## Supported Platforms
 
-- **macOS** — uses `display notification` via AppleScript (`osascript`)
+- **macOS** — uses [`terminal-notifier`](https://github.com/julienXX/terminal-notifier). Clicking a notification focuses the terminal that launched the Claude session; repeated events for the same session replace each other instead of stacking.
 - **Linux** — uses `notify-send` via [libnotify](https://gitlab.gnome.org/GNOME/libnotify)
 
 ## Dependencies
 
 - [`jq`](https://stedolan.github.io/jq/) — used to parse hook input.
+
+### macOS
+
+Install `terminal-notifier`:
+
+```sh
+brew install terminal-notifier
+```
+
+On first use, macOS will silently drop notifications until you enable them. Open **System Settings → Notifications → terminal-notifier** and allow banners.
 
 ### Linux
 
