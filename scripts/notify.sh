@@ -1,8 +1,6 @@
 #!/bin/bash
 
-CLAUDE_ICON_URL="https://claude.ai/images/claude_app_icon.png"
-ICON_DIR="${CLAUDE_PLUGIN_DATA:-$HOME/.claude/plugins/data/notification}"
-ICON_FILE="$ICON_DIR/claude-icon.png"
+ICON_FILE="${CLAUDE_PLUGIN_ROOT:-$(cd "$(dirname "$0")/.." && pwd)}/assets/claude-logo.png"
 
 # In the delayed re-invocation SESSION_ID is inherited via env and stdin is /dev/null.
 if [ -z "$SESSION_ID" ]; then
@@ -10,18 +8,6 @@ if [ -z "$SESSION_ID" ]; then
   SESSION_ID=$(echo "$INPUT" | jq -r '.session_id // empty')
 fi
 PIDFILE="/tmp/claude-notify-${SESSION_ID}.pid"
-
-icon_path() {
-  if [ ! -s "$ICON_FILE" ]; then
-    mkdir -p "$ICON_DIR" 2>/dev/null
-    if curl -fsSL --max-time 5 "$CLAUDE_ICON_URL" -o "$ICON_FILE.tmp" 2>/dev/null; then
-      mv "$ICON_FILE.tmp" "$ICON_FILE"
-    else
-      rm -f "$ICON_FILE.tmp"
-    fi
-  fi
-  [ -s "$ICON_FILE" ] && echo "$ICON_FILE"
-}
 
 # macOS: resolve the bundle id of the terminal that launched this Claude session.
 # $__CFBundleIdentifier is set by LaunchServices and inherited through tmux/ssh.
@@ -93,13 +79,12 @@ if [ $# -ge 2 ]; then
           exit 0
         fi
         is_session_frontmost && exit 0
-        ICON=$(icon_path)
         BUNDLE_ID=$(session_bundle_id)
 
         args=(-title "$TITLE" -message "$MESSAGE")
         [ -n "$SESSION_ID" ] && args+=(-group "$SESSION_ID")
         [ -n "$BUNDLE_ID" ] && args+=(-sender "$BUNDLE_ID" -activate "$BUNDLE_ID")
-        [ -n "$ICON" ] && args+=(-appIcon "$ICON")
+        [ -s "$ICON_FILE" ] && args+=(-appIcon "$ICON_FILE")
         terminal-notifier "${args[@]}" >/dev/null 2>&1
         ;;
       Linux)
